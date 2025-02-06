@@ -36,7 +36,7 @@ export default function Login() {
                 <input type="password" ref={passwordRef} required />
                 <button disabled={loading} type="submit">Log In</button>
             </form>
-            <p>Need an account> <Link to="/signup">Sign Up</Link></p>
+            <p>Need an account <Link to="/signup">Sign Up</Link></p>
         </div>
     );
 }
