@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import Login from "./components/Auth/Login";
@@ -49,34 +49,32 @@ function App() {
   }
 
   return (
-    <Router>
-      <Routes>
-        {/* Protected Route (Dashboard with Todo List) */}
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <Dashboard>
-                <TodoInput
-                  todoValue={todoValue}
-                  setTodoValue={setTodoValue}
-                  handleAddTodos={handleAddTodos}
-                />
-                <TodoList
-                  handleDeleteTodo={handleDeleteTodo}
-                  handleEditTodo={handleEditTodo}
-                  todos={todos}
-                />
-              </Dashboard>
-            </PrivateRoute>
-          }
-        />
+    <Routes>
+      {/* Protected Route (Dashboard with Todo List) */}
+      <Route
+        path="/"
+        element={
+          <PrivateRoute>
+            <Dashboard>
+              <TodoInput
+                todoValue={todoValue}
+                setTodoValue={setTodoValue}
+                handleAddTodos={handleAddTodos}
+              />
+              <TodoList
+                handleDeleteTodo={handleDeleteTodo}
+                handleEditTodo={handleEditTodo}
+                todos={todos}
+              />
+            </Dashboard>
+          </PrivateRoute>
+        }
+      />
 
-        {/* Authentication Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
-    </Router>
+      {/* Authentication Routes */}
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+    </Routes>
   );
 }
 
