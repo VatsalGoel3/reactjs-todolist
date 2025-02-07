@@ -1,13 +1,14 @@
 // src/components/Dashboard.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import TodoInput from "./TodoInput";
 import TodoList from "./TodoList";
 
 export default function Dashboard() {
-    const { lagout } = useAuth();
+    const { logout } = useAuth();
     const navigate = useNavigate();
+    const [todos, setTodos] = useState([]);
 
     async function handleLogout() {
         try {
@@ -25,7 +26,7 @@ export default function Dashboard() {
             </header>
             <main>
                 <TodoInput />
-                <TodoList />
+                <TodoList todos={todos} />
             </main>
         </div>
     );
