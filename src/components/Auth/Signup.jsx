@@ -25,7 +25,8 @@ export default function Signup() {
             setLoading(true);
             await signup(emailRef.current.value, passwordRef.current.value);
             navigate("/");
-        } catch {
+        } catch (error) {
+            console.error("Signup error:", error);
             setError("Failed to create an account");
         }
         setLoading(false);
@@ -36,7 +37,7 @@ export default function Signup() {
             <div className="signup-card">
                 <h2 className="signup-heading">Sign Up</h2>
                 {error && <p className="error-message">{error}</p>}
-                <form on Submit={handleSubmit} className="signup-form">
+                <form onSubmit={handleSubmit} className="signup-form">
                     <label>Email</label>
                     <input type="email" ref={emailRef} required />
 
