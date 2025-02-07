@@ -2,6 +2,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
+import "./Signup.css";
 
 export default function Signup() {
     const emailRef = useRef();
@@ -31,19 +32,28 @@ export default function Signup() {
     }
 
     return (
-        <div>
-            <h2>Sign Up</h2>
-            {error && <p>{error}</p>}
-            <form onSubmit={handleSubmit}>
-                <label>Email</label>
-                <input type="email" ref={emailRef} required />
-                <label>Password</label>
-                <input type="password" ref={passwordRef} required />
-                <label>Password Confirmation</label>
-                <input type="password" ref={passwordConfirmRef} required />
-                <button disabled={loading} type="submit">Sign Up</button>
-            </form>
-            <p>Already have an account? <Link to="/login">Log In</Link></p>
+        <div className="signup-container">
+            <div className="signup-card">
+                <h2 className="signup-heading">Sign Up</h2>
+                {error && <p className="error-message">{error}</p>}
+                <form on Submit={handleSubmit} className="signup-form">
+                    <label>Email</label>
+                    <input type="email" ref={emailRef} required />
+
+                    <label>Password</label>
+                    <input type="password" ref={passwordRef} required />
+
+                    <label>Password Confirmation</label>
+                    <input type="password" ref={passwordConfirmRef} required />
+
+                    <button className="signup-button" disabled={loading} type="submit">
+                        {loading ? "Signing Up..." : "Sign Up"}
+                    </button>
+                </form>
+                <p className="login-link">
+                    Already have an account? <Link to="/login">Log In</Link>
+                </p>
+            </div>
         </div>
     );
 }
