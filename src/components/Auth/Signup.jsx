@@ -8,7 +8,7 @@ export default function Signup() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup } = useAuth();
+    const { signup, googleLogin } = useAuth();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -32,6 +32,19 @@ export default function Signup() {
         setLoading(false);
     }
 
+    async function handleGoogleSignup() {
+        try {
+            setError("");
+            setLoading(true);
+            await googleLogin();
+            navigate("/");
+        } catch (error) {
+            console.error("Google Signup error:", error);
+            setError("Failed to sign in with Google")
+        }
+        setLoading(false);
+    }
+
     return (
         <div className="signup-container">
             <div className="signup-card">
@@ -51,6 +64,11 @@ export default function Signup() {
                         {loading ? "Signing Up..." : "Sign Up"}
                     </button>
                 </form>
+
+                <button className="google-signup-button" onClick={handleGoogleSignup} disabled={loading}>
+                    Sign Up with Google
+                </button>
+
                 <p className="login-link">
                     Already have an account? <Link to="/login">Log In</Link>
                 </p>

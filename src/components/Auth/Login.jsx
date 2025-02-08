@@ -7,7 +7,7 @@ import "./Login.css"
 export default function Login() {
     const emailRef = useRef();
     const passwordRef = useRef();
-    const { login } = useAuth();
+    const { login, googleLogin } = useAuth();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -22,6 +22,19 @@ export default function Login() {
             navigate("/");
         } catch {
             setError("Failed to log in");
+        }
+        setLoading(false);
+    }
+    
+    async function handleGoogleLogin() {
+        try {
+            setError("");
+            setLoading(true);
+            await googleLogin();
+            navigate("/");
+        } catch (error) {
+            console.error("Google Login error:", error);
+            setError("Failed to log in with Google");
         }
         setLoading(false);
     }
@@ -40,6 +53,10 @@ export default function Login() {
 
                     <button className="login-button" disabled={loading} type="submit">
                         {loading ? "Logging In..." : "Log In"}
+                    </button>
+
+                    <button className="google-login-button" onClick={handleGoogleLogin} disabled={loading}>
+                        Log In with Google
                     </button>
                 </form>
                 <p className="signup-link">
